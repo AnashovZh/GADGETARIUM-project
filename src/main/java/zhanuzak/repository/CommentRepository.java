@@ -10,4 +10,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment,Long> {
     @Query("select new zhanuzak.dto.response.CommentResponse(c.id,c.comment,c.createdDateTime)from Comment c")
     List<CommentResponse>findAllComments();
+    @Query("select new zhanuzak.dto.response.CommentResponse(c.id,c.comment,c.createdDateTime)from Comment c where c.product.id=:productId")
+    List<CommentResponse>findAllCommentsByProductId(Long productId);
 }

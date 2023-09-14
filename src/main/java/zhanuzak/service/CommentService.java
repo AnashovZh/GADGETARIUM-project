@@ -16,4 +16,6 @@ public interface CommentService {
     SimpleResponse delete(Long id);
 
     SimpleResponse saveComment(Long productId, CommentRequest commentRequest);
+
+    List<CommentResponse> findAllProductId(Long id);
 }

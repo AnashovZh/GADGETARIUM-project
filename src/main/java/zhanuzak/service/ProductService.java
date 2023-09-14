@@ -21,4 +21,6 @@ public interface ProductService {
     SimpleResponse update(Long id, Map<String, Object> fields);
 
     SimpleResponse deleteByName(String name);
+
+    List<ProductResponse> findAllByCategoryAndPrice(String price ,Category category);
 }

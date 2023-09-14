@@ -19,7 +19,6 @@ import zhanuzak.repository.ProductRepository;
 import zhanuzak.repository.UserRepository;
 import zhanuzak.service.CommentService;
 
-import java.rmi.NotBoundException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -101,5 +100,10 @@ public class CommentServiceImpl implements CommentService {
                 .httpStatus(HttpStatus.OK)
                 .message("Comment successfully saved ☺ with id:" + save.getId())
                 .build();
+    }
+
+    @Override
+    public List<CommentResponse> findAllProductId(Long id) {
+        return commentRepository.findAllCommentsByProductId(id);
     }
 }

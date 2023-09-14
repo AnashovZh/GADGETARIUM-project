@@ -1,22 +1,19 @@
 package zhanuzak.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import zhanuzak.enums.Category;
 import zhanuzak.enums.Country;
-import zhanuzak.enums.Role;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "products")
 public class Product {
     @Id
@@ -29,7 +26,6 @@ public class Product {
     @ElementCollection
     private List<String> images;
     private String characteristic;
-    @Column(name = "is_favorite")
     private boolean isFavorite;
     @Column(name = "made_in")
     @Enumerated(EnumType.STRING)
@@ -41,10 +37,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Favorite> favorite;
     @ManyToMany(mappedBy = "products")
-    private List<Basket> basket;
+    private List<Basket> baskets;
     @OneToMany(mappedBy = "product")
     private List<Comment> comment;
-
-    public Product() {
-    }
 }

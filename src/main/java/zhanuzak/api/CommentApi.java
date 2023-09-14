@@ -22,6 +22,11 @@ public class CommentApi {
     List<CommentResponse> getAll() {
         return commentService.findAll();
     }
+    @PermitAll
+    @GetMapping("/getAllByProductId/{id}")
+    List<CommentResponse>getAllWithProductId(@PathVariable Long id){
+        return commentService.findAllProductId(id);
+    }
 
 
     @PreAuthorize("hasAuthority('USER')")
@@ -49,5 +54,6 @@ public class CommentApi {
     SimpleResponse delete(@PathVariable Long id) {
         return commentService.delete(id);
     }
+
 
 }

@@ -25,11 +25,21 @@ public class ProductApi {
         return productService.findAll();
     }
 
+    //    Бардык продуктыларды алып жатканда Категория жана прайс аркылуу
+//    фильтрация болуш керек жана прайс боюнча сортировка болуш керек
+    @PermitAll
+    @GetMapping("/getAllByCategoryAndPrice")
+    List<ProductResponse> getAllByCategoryAndPrice(@RequestParam Category category,
+                                                   @RequestParam String price) {
+        return productService.findAllByCategoryAndPrice(price,category);
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     SimpleResponse save(@RequestBody ProductRequest productRequest) {
         return productService.save(productRequest);
     }
+
 
     @PermitAll
     @GetMapping("/{id}")

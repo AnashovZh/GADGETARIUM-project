@@ -71,6 +71,7 @@ public class ProductServiceImpl implements ProductService {
         productResponse.setCategory(product.getCategory());
         return productResponse;
     }
+
     @Override
     public SimpleResponse updateByNameAndCategory(String name,
                                                   Category category,
@@ -160,5 +161,17 @@ public class ProductServiceImpl implements ProductService {
                 .httpStatus(HttpStatus.OK)
                 .message("Product with name:" + name + " successfully updated")
                 .build();
+    }
+
+    @Override
+    public List<ProductResponse> findAllByCategoryAndPrice(String price, Category category) {
+        if (price.equalsIgnoreCase("asc") || price.equalsIgnoreCase("desc")) {
+            if (price.equalsIgnoreCase("asc")) {
+                return productRepository.findAllByCategoryAndPriceAsc(category);
+            } else if (price.equalsIgnoreCase("desc")) {
+                return productRepository.findAllByCategoryAndPriceDesc(category);
+            }
+        }
+        return null;
     }
 }
