@@ -8,6 +8,8 @@ import zhanuzak.enums.Country;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static jakarta.persistence.CascadeType.ALL;
+
 
 @Entity
 @Getter
@@ -34,9 +36,9 @@ public class Product {
     private Category category;
     @ManyToOne(fetch = FetchType.EAGER)
     private Brand brand;
-    @OneToMany(mappedBy = "product")
-    private List<Favorite> favorite;
-    @ManyToMany(mappedBy = "products")
+    @OneToMany(mappedBy = "product",cascade = {ALL})
+    private List<Favorite> favorites;
+    @ManyToMany(mappedBy = "products",cascade = ALL)
     private List<Basket> baskets;
     @OneToMany(mappedBy = "product")
     private List<Comment> comment;

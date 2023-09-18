@@ -19,19 +19,13 @@ import java.util.Map;
 public class ProductApi {
     private final ProductService productService;
 
-    @PermitAll
-    @GetMapping
-    List<ProductResponse> getAll() {
-        return productService.findAll();
-    }
-
     //    Бардык продуктыларды алып жатканда Категория жана прайс аркылуу
-//    фильтрация болуш керек жана прайс боюнча сортировка болуш керек
+    //    фильтрация болуш керек жана прайс боюнча сортировка болуш керек
     @PermitAll
     @GetMapping("/getAllByCategoryAndPrice")
     List<ProductResponse> getAllByCategoryAndPrice(@RequestParam Category category,
-                                                   @RequestParam String price) {
-        return productService.findAllByCategoryAndPrice(price,category);
+                                                   @RequestParam String ascOrDesc) {
+        return productService.findAllByCategoryAndPrice(ascOrDesc, category);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -47,17 +41,59 @@ public class ProductApi {
         return productService.getById(id);
     }
 
+    /**
+     * Бир продуктыны алып жатканда комментарийлери кошо чыгыш керек
+     */
+    @PermitAll
+    @GetMapping("/getByIdWithComment/{id}")
+    ProductResponse getByIdWithComment(@PathVariable Long id) {
+        return productService.getByIdWithComment(id);
+    }
+
+    /**
+     * Бир продукты алып жатанда канча лайк бар экенин чыгарыш керек
+     */
+    @PermitAll
+    @GetMapping("/countLike/{id}")
+    ProductResponse getProductWithCountLike(@PathVariable Long id) {
+        return productService.getProductWithCountLike(id);
+    }
+
+    /**
+     * Юзер жактырган продуктысын избранныйга кошо алган жана ал
+     * жактан алып салган функционалы болсун
+     */
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("/favorite/{id}")
+    SimpleResponse addingOrRemovingFavorites(@RequestParam String favoriteOrNotFavorite,
+                                             @PathVariable Long id) {
+        return productService.addingOrRemovingFavorites(favoriteOrNotFavorite, id);
+    }
+//    /**Бир продукты алып жатанда канча лайк бар экенин чыгарыш керек*/
+//    @PermitAll
+//    @GetMapping("/like/{id}")
+//    ProductResponse getLikeProduct(@PathVariable  Long id){
+//        return productService.getProductWith
+//    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping("/favorite1/{id}")
+    SimpleResponse addingOrRemovingFavorites1(@PathVariable Long id) {
+        return productService.addingOrRemovingFavorites1( id);
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/updateByEmailAndPassword")
-    SimpleResponse updateByEmailAndPassword(@RequestParam String name,
-                                            @RequestParam Category category,
-                                            Map<String, Object> fields) {
+    SimpleResponse updateByNameAndCategory(@RequestParam(required = false) String name,
+                                           @RequestParam(required = false) Category category,
+                                           Map<String, Object> fields) {
         return productService.updateByNameAndCategory(name, category, fields);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
-    SimpleResponse update(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+    SimpleResponse update(@PathVariable Long id,
+                          @RequestBody Map<String, Object> fields) {
         return productService.update(id, fields);
     }
 

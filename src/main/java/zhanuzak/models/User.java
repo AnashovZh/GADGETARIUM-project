@@ -36,7 +36,7 @@ public class User implements UserDetails {
     private LocalDateTime updatedDate;
     @Enumerated(EnumType.STRING)
     private Role role;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Favorite> favorites;
     @OneToOne(mappedBy = "user")
     private Basket basket;

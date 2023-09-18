@@ -22,9 +22,10 @@ public class CommentApi {
     List<CommentResponse> getAll() {
         return commentService.findAll();
     }
+
     @PermitAll
     @GetMapping("/getAllByProductId/{id}")
-    List<CommentResponse>getAllWithProductId(@PathVariable Long id){
+    List<CommentResponse> getAllWithProductId(@PathVariable Long id) {
         return commentService.findAllProductId(id);
     }
 

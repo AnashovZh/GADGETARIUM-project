@@ -26,7 +26,8 @@ public class UserResponse {
     private Role role;
 
 
-    public UserResponse(String firstName, String lastName, String email, String password, LocalDateTime createdDate, Role role) {
+    public UserResponse(String firstName, String lastName, String email,
+                        String password, LocalDateTime createdDate, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

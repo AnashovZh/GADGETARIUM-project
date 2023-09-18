@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
-    List<ProductResponse> findAll();
+
 
     SimpleResponse save(ProductRequest productRequest);
 
@@ -22,5 +22,13 @@ public interface ProductService {
 
     SimpleResponse deleteByName(String name);
 
-    List<ProductResponse> findAllByCategoryAndPrice(String price ,Category category);
+    List<ProductResponse> findAllByCategoryAndPrice(String ascOrDesc, Category category);
+
+    ProductResponse getByIdWithComment(Long id);
+
+    ProductResponse getProductWithCountLike(Long id);
+
+    SimpleResponse addingOrRemovingFavorites(String favoriteOrNotFavorite, Long id);
+
+    SimpleResponse addingOrRemovingFavorites1(Long id);
 }

@@ -1,10 +1,12 @@
 package zhanuzak.models;
 
 import jakarta.persistence.*;
-import jdk.dynalink.linker.LinkerServices;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.List;
+import static jakarta.persistence.CascadeType.*;
 
 
 @AllArgsConstructor
@@ -18,10 +20,10 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_seg")
     @SequenceGenerator(name = "favorite_seg", allocationSize = 1)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = {REMOVE,REFRESH,MERGE,DETACH})
     @JoinColumn(name = "user_id  ")
     private User user;
-    @ManyToOne
+    @ManyToOne(cascade = {REMOVE,REFRESH,MERGE,DETACH})
     private Product product;
 
 }

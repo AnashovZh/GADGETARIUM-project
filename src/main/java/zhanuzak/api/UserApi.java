@@ -40,7 +40,8 @@ public class UserApi {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/{id}")
-    SimpleResponse updateMap(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+    SimpleResponse updateMap(@PathVariable Long id,
+                             @RequestBody Map<String, Object> fields) {
         return userService.updateMap(id, fields);
     }
 

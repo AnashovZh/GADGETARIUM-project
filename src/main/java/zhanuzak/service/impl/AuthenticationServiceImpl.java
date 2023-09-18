@@ -84,6 +84,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (!userRepository.existsByEmail("admin@gmail.com")) {
             userRepository.save(user);
         }
+    }
 
+    @PostConstruct
+    @Override
+    public void init2() {
+        User user = new User();
+        user.setFirstName("Zhanuzak");
+        user.setLastName("Anashov");
+        user.setEmail("zhanuzak@gmail.com");
+        user.setPassword(passwordEncoder.encode("zhanuzak123"));
+        user.setRole(Role.ADMIN);
+        user.setCreatedDate(LocalDateTime.now());
+        if (!userRepository.existsByEmail("zhanuzak@gmail.com")) {
+            userRepository.save(user);
+        }
     }
 }

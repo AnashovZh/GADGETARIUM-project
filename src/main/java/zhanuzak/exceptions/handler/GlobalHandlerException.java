@@ -4,10 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import zhanuzak.exceptions.exception.AlreadyExistException;
-import zhanuzak.exceptions.exception.BadCreadentialException;
-import zhanuzak.exceptions.exception.BadRequest;
-import zhanuzak.exceptions.exception.NotFoundException;
+import zhanuzak.exceptions.exception.*;
 import zhanuzak.exceptions.exceptionResponse.ExceptionResponse;
 
 @RestControllerAdvice
@@ -49,6 +46,15 @@ public class GlobalHandlerException {
                 .httpStatus(HttpStatus.FORBIDDEN)
                 .exceptionClassName(e.getClass().getSimpleName())
                 .message(e.getMessage())
+                .build();
+    }
+    @ExceptionHandler(NonUniqueResultException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionResponse nonUniqueResultException(NonUniqueResultException n){
+        return ExceptionResponse.builder()
+                .httpStatus(HttpStatus.CONFLICT)
+                .exceptionClassName(n.getClass().getSimpleName())
+                .message(n.getMessage())
                 .build();
     }
 

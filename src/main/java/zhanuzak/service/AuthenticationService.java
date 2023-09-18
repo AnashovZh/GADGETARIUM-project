@@ -10,5 +10,6 @@ public interface AuthenticationService {
     AuthenticationResponse signIn(SignInRequest signInRequest);
 
     void init();
+    void init2();
 
 }
