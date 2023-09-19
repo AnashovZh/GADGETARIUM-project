@@ -1,7 +1,10 @@
 package zhanuzak.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "baskets")
+
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "basket_seg")

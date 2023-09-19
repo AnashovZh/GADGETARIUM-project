@@ -1,7 +1,9 @@
 package zhanuzak.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import zhanuzak.dto.response.ProductResponse;
 import zhanuzak.enums.Category;
@@ -24,4 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByName(String name);
     @Query("select p.images from Product p where p.id=?1")
     List<String> images(Long productId);
+
+    @Modifying
+    @Query("DELETE FROM Basket b WHERE :productId MEMBER OF b.products")
+    void deleteBasketsContainingProduct(@Param("productId") Long productId);
+
 }

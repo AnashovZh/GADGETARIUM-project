@@ -30,8 +30,9 @@ public class ProductApi {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
-    SimpleResponse save(@RequestBody ProductRequest productRequest) {
-        return productService.save(productRequest);
+    SimpleResponse save(@RequestBody ProductRequest productRequest,
+                        @RequestParam(required = false) String brandName) {
+        return productService.save(productRequest,brandName);
     }
 
 
@@ -69,12 +70,6 @@ public class ProductApi {
                                              @PathVariable Long id) {
         return productService.addingOrRemovingFavorites(favoriteOrNotFavorite, id);
     }
-//    /**Бир продукты алып жатанда канча лайк бар экенин чыгарыш керек*/
-//    @PermitAll
-//    @GetMapping("/like/{id}")
-//    ProductResponse getLikeProduct(@PathVariable  Long id){
-//        return productService.getProductWith
-//    }
 
     @PreAuthorize("hasAuthority('USER')")
     @PostMapping("/favorite1/{id}")

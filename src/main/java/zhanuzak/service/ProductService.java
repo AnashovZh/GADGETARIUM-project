@@ -11,7 +11,7 @@ import java.util.Map;
 public interface ProductService {
 
 
-    SimpleResponse save(ProductRequest productRequest);
+    SimpleResponse save(ProductRequest productRequest, String brandName);
 
     ProductResponse getById(Long id);
 

@@ -1,9 +1,13 @@
 package zhanuzak.dto.response;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import zhanuzak.enums.Category;
 import zhanuzak.enums.Country;
+import zhanuzak.models.Product;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 //    private Long id;
@@ -29,7 +33,7 @@ public class ProductResponse {
     private List<String> comments;
     private int countComment;
     private int countCommentsByUser;
-    private List<String>FirstNameCommentsByUser;
+    private List<String> FirstNameCommentsByUser;
     private int countLike;
 
     public ProductResponse(Long id, String name, BigDecimal price,
@@ -41,6 +45,29 @@ public class ProductResponse {
         this.isFavorite = isFavorite;
         this.madeIn = madeIn;
         this.category = category;
+    }
+
+    public ProductResponse build(Product product) {
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(product.getId());
+        productResponse.setName(product.getName());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setImages(product.getImages());
+        productResponse.setCharacteristic(product.getCharacteristic());
+        productResponse.setFavorite(product.isFavorite());
+        productResponse.setMadeIn(product.getMadeIn());
+        productResponse.setCategory(product.getCategory());
+        return productResponse;
+    }
+
+    public List<ProductResponse> builders(List<Product> products) {
+        List<ProductResponse> productResponses = new ArrayList<>();
+        ProductResponse productResponse = new ProductResponse();
+        for (Product p : products) {
+            productResponse.build(p);
+        }
+        productResponses.add(productResponse);
+        return productResponses;
     }
 
     public void setCountLike(int countLike) {
@@ -86,6 +113,7 @@ public class ProductResponse {
     public void setImages(List<String> images) {
         this.images = images;
     }
+
     public void setCharacteristic(String characteristic) {
         this.characteristic = characteristic;
     }

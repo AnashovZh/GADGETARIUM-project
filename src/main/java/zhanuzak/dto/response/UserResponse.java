@@ -1,9 +1,10 @@
 package zhanuzak.dto.response;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import zhanuzak.enums.Role;
+import zhanuzak.models.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 //private Long id;
@@ -37,5 +38,16 @@ public class UserResponse {
     }
 
     public UserResponse() {
+    }
+    public UserResponse build(User user){
+        UserResponse userResponse=new UserResponse();
+        userResponse.setId(user.getId());
+        userResponse.setFirstName(user.getFirstName());
+        userResponse.setLastName(user.getLastName());
+        userResponse.setEmail(user.getEmail());
+        userResponse.setPassword(user.getPassword());
+        userResponse.setCreatedDate(user.getCreatedDate());
+        userResponse.setRole(user.getRole());
+        return userResponse;
     }
 }

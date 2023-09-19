@@ -1,7 +1,10 @@
 package zhanuzak.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import zhanuzak.enums.Category;
 import zhanuzak.enums.Country;
 
@@ -17,6 +20,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "products")
+
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seg")

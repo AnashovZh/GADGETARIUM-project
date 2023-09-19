@@ -16,13 +16,11 @@ import zhanuzak.enums.Category;
 import zhanuzak.enums.Country;
 import zhanuzak.exceptions.exception.NonUniqueResultException;
 import zhanuzak.exceptions.exception.NotFoundException;
+import zhanuzak.models.Brand;
 import zhanuzak.models.Favorite;
-import zhanuzak.repository.FavoriteRepository;
 import zhanuzak.models.Product;
 import zhanuzak.models.User;
-import zhanuzak.repository.CommentRepository;
-import zhanuzak.repository.ProductRepository;
-import zhanuzak.repository.UserRepository;
+import zhanuzak.repository.*;
 import zhanuzak.service.ProductService;
 
 import java.lang.reflect.Field;
@@ -39,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final CommentRepository commentRepository;
+    private final BrandRepository brandRepository;
 
     //    private String name;
 //    private BigDecimal price;
@@ -72,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public SimpleResponse save(ProductRequest productRequest) {
+    public SimpleResponse save(ProductRequest productRequest, String brandName) {
         Product product = new Product();
         product.setName(productRequest.name());
         product.setPrice(productRequest.price());
@@ -81,6 +80,8 @@ public class ProductServiceImpl implements ProductService {
         product.setFavorite(productRequest.isFavorite());
         product.setMadeIn(productRequest.madeIn());
         product.setCategory(productRequest.category());
+        Brand brand = brandRepository.findBrandByBrandName(brandName);
+        product.setBrand(brand);
         Product save = productRepository.save(product);
         return SimpleResponse.builder()
                 .httpStatus(HttpStatus.CREATED)

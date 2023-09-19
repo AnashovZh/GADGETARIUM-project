@@ -2,8 +2,6 @@ package zhanuzak.dto.request;
 
 import lombok.Builder;
 
-import java.time.LocalDate;
-
 //private Long id;
 //private String firstName;
 //private String lastName;
